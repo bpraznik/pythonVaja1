@@ -1,23 +1,21 @@
+import datetime
+
 from flask import Flask, render_template
-import random
 
 app = Flask(__name__)
 
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    some_text = "Message from the handler!"
+    current_year = datetime.datetime.now()
+    return render_template("index.html", text=some_text, current=current_year)
 
 
-names = ["Bor", "Filip", "Meta", "Tanja"]
-
-
-@app.route("/hello")
-def hello():
-    return render_template("hello.html", user=random.choice(names))
-
-
-food = ["Pizza", "Burger", "Tortila", "Pasta"]
+@app.route("/about-me")
+def about_me():
+    about_list_1 = []
+    return render_template("about.html", about_list=about_list_1)
 
 
 if __name__ == '__main__':

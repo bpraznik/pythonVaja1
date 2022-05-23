@@ -1,13 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Hello, SmartNinja</title>
-        <link rel="stylesheet" href="/static/css/style.css">
-    </head>
+{% extends "base.html" %}
 
-    <body>
-        <h1>Welcome back to HTML ;)</h1>
-        <img src="/static/img/smartninja.png">
-    </body>
-</html>
+{% block title %}
+<title>Index of my page</title>
+{% endblock title %}
+
+
+{% block content %}
+<p>Hello, from index.html!</p>
+<p>{{ text }}</p>
+<p>Current year: {{ current }}</p>
+{% endblock content %}
