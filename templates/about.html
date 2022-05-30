@@ -1,16 +1,12 @@
-{% extends "base.html" %}
-
-{% block title %}
-<title>Get to know me</title>
-{% endblock title %}
-
-{% block content %}
-<p>More about me:</p>
-{% if about_list %}
-{% for data in about_list %}
-    <p>{{ data }}</p>
-{% endfor %}
-{% else %}
-    <p>No data about me</p>
+{% if name %}
+<h1>Hi {{ name }}</h1>
 {% endif %}
-{% endblock content %}
+<form method="post" action="/about-me">
+    <input type="text" name="contact-name" placeholder="Enter your name">
+    <br>
+    <input type="email" name="contact-email" placeholder="Enter email address">
+    <br>
+    <textarea name="contact-message" placeholder="Enter your message"></textarea>
+    <br>
+    <button type="submit">Submit</button>
+</form>

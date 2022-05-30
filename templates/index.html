@@ -1,12 +1,24 @@
-{% extends "base.html" %}
-
-{% block title %}
-<title>Index of my page</title>
-{% endblock title %}
-
-
-{% block content %}
-<p>Hello, from index.html!</p>
-<p>{{ text }}</p>
-<p>Current year: {{ current }}</p>
-{% endblock content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple database example</title>
+</head>
+<body>
+    <form action="/add-message" method="post">
+        <input name="username" placeholder="Enter your name">
+        <br>
+        <br>
+        <textarea placeholder="Enter your message" name="text" rows="5"></textarea>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+    <hr>
+<h2>Messages:</h2>
+{% for message in messages %}
+    <p>
+        <strong>{{ message.author }}: </strong> {{ message.text }}
+    </p>
+{% endfor %}
+</body>
+</html>
