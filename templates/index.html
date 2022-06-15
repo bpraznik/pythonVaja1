@@ -1,24 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Simple database example</title>
-</head>
-<body>
-    <form action="/add-message" method="post">
-        <input name="username" placeholder="Enter your name">
-        <br>
-        <br>
-        <textarea placeholder="Enter your message" name="text" rows="5"></textarea>
-        <br>
-        <button type="submit">Submit</button>
-    </form>
-    <hr>
-<h2>Messages:</h2>
+{% extends "base.html" %}
+
+{% block content %}
+{% if user %}
+<form action="/add-message" method="post">
+    <textarea placeholder="Enter your message" name="text" rows="5"></textarea>
+    <br>
+
+    <button type="submit">Submit</button>
+</form>
+<hr>
 {% for message in messages %}
-    <p>
-        <strong>{{ message.author }}: </strong> {{ message.text }}
-    </p>
+<p>
+    <strong>{{ message.author }}:</strong>
+    {{message.text}}
+</p>
 {% endfor %}
-</body>
-</html>
+{% else %}
+<form method="post" action="/login">
+    <input type="text" name="user-username" placeholder="Enter your username">
+    <input type="password" name="user-password" placeholder="Enter your password">
+    <button type="submit">Submit</button>
+</form>
+{% endif %}
+{% endblock content %}

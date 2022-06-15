@@ -1,37 +1,26 @@
-import os
+from flask import Flask, render_template, request
 
-from flask import Flask, render_template, request, redirect, url_for
-from sqla_wrapper import SQLAlchemy
+from app.database import db
+from app.message_handlers import message_handlers
+from app.models import Message
+from app.profile_handlers import profile_handlers
+from app.user_handlers import user_handlers
+from app.util import get_user_from_request
 
 app = Flask(__name__)
-
-db_url = os.getenv("DATABASE_URL", "sqlite:///db.sqlite").replace("postgres://", "postgresql://", 1)
-db = SQLAlchemy(db_url)
-
-
-class Message(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    author = db.Column(db.String, unique=False)
-    text = db.Column(db.String, unique=False)
-
+app.register_blueprint(profile_handlers)
+app.register_blueprint(user_handlers)
+app.register_blueprint(message_handlers)
 
 db.create_all()
 
 
 @app.route("/", methods=["GET"])
 def index():
+    user = get_user_from_request(request)
     messages = db.query(Message).all()
-    return render_template("index.html", messages=messages)
 
-
-@app.route("/add-message", methods=["POST"])
-def add_message():
-    username = request.form.get("username")
-    message = request.form.get("text")
-
-    message = Message(author=username, text=message)
-    message.save()
-    return redirect("/")
+    return render_template("index.html", messages=messages, user=user)
 
 
 if __name__ == '__main__':

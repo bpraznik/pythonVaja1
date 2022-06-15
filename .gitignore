@@ -1,2 +1,6 @@
 venv/
 *.pyc
+
+db.sqlite
+/db.sqlite
+/tests/.pytest_cache/
